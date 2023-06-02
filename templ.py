@@ -41,7 +41,7 @@ try:
             wr = str(WorkBPR)
             wp = str(WorkBP)
             we = str(WorkENTP)
-            typ = 'string'
+            typ = f"'{'string'}'"
             if doc:
                sss = ' '
                if aft_cell != '':
@@ -60,8 +60,8 @@ try:
             elif s[2] =='y':
                 sss = "текущий год"
             elif s[2] =='s':
-                sss = "serial"
-                typ = 'serial'
+                sss = "№ пп"
+                typ = f"'{'serial'}'"
             elif s[2] == 'D':
                sss = "день"
             elif s[2] =='M':
@@ -69,14 +69,14 @@ try:
             elif s[2] =='Y':
                 sss = "год"
             elif s[2] == 'E':
-                wd =f"'0'"
-                wr = f"'0'"
-                wp = f"'0'"
+                wd ='0'
+                wr ='0'
+                wp ='0'
             elif s[2] == 'P':
-                wd =f"'0'"
-                wr = f"'0'"
+                wd ='0'
+                wr = '0'
             elif s[2] == 'R':
-                wd =f"'0'"
+                wd =f'0'
 
             s = f"'{sss}'"
             sa = 'insert into docp (docp_p,docp_d,docp_t,docp_r,docp_c,doc_id,bpr_id,bp_id,entp_id) values ('\
@@ -170,6 +170,7 @@ try:
 # Получаем объект курсора для выполнения SQL-запросов
   cursor = conn.cursor()
   conn.autocommit = True
+  print (file_name)
   GetPL(file_name)
   cursor.close()
   conn.close()
@@ -177,3 +178,7 @@ try:
 except FileNotFoundError:
      print('file not found-' + file_name)
      exit(-1)
+
+except psycopg2.Error:
+    print ('ошибка БД')
+    exit(-1)
